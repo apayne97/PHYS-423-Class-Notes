@@ -1,0 +1,48 @@
+\documentclass[]{report}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage[left=1in, right=1in]{geometry}
+\usepackage{svg}
+\usepackage{mathtools}
+
+% bibliography
+\usepackage[many]{tcolorbox}
+\usepackage[
+backend=biber,
+style=nature,
+]{biblatex}
+\addbibresource{main.bib}
+\addbibresource{resources.bib}
+
+\title{PHYS 423 \\ \normalsize Applications of Biophysics}
+\author{Alexander Matthew Payne}
+\date{August 6, 2025} % Or \date{\today} for the current date
+
+\newtcolorbox{keynote}[1][]{
+        colback=yellow!10!white, % Light yellow background
+        colframe=orange!75!black, % Orange frame
+        boxsep=5pt, % Space between frame and content
+        arc=4pt, % Rounded corners
+        boxrule=1pt, % Frame thickness
+        breakable, % Allows the box to break across pages
+        enhanced, % Enables advanced features like shadows
+        #1 % Allows for additional options to be passed
+    }
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\part{Foundations of Biophysics}
+\include{foundations/introduction}
+\include{foundations/chemistry}
+\include{foundations/biology}
+\include{foundations/stat_mech}
+
+\part{Proteins with Jobs}
+\include{proteins_with_jobs/hemoglobin}
+
+\printbibliography
+
+\end{document}

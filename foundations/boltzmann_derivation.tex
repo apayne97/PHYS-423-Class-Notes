@@ -1,0 +1,309 @@
+\section{Deriving the Boltzmann distribution}
+
+This derivation is based on the \href{https://www.youtube.com/watch?v=_6AFgt2gkr0&list=PLuIpgNT2hMwTyjpKVevMHUofykrXFtNVW&index=4}{lecture series} by Erik Lindahl. 
+
+\subsection{The distribution of gas molecules in a box with gravity}
+
+Image a box containing an ideal gas under the force of gravity.
+You should have an intuitive sense that distribution of molecules will be higher at the bottom of the box, as they are, on average, pulled down by the weight of gravity.
+
+Its properties of state are defined by the ideal gas law (by definition -- an ideal gas is one where this equation holds):
+\begin{equation}
+    pV = Nk_BT
+\end{equation}
+
+Let's make this simpler by defining the number of molecules per unit volume as n
+
+\begin{equation}
+    n = \frac{N}{V}
+\end{equation}
+
+Then we get 
+\begin{equation}
+    p = nk_BT \label{eq:ideal_simple}
+\end{equation}
+
+We know that for a single particle, its potential energy is defined as
+\begin{equation}
+    E_{pot} = mgh
+\end{equation}
+and the force acting on the particle by gravity is:
+\begin{equation}
+    F = -\dfrac{dE}{dh} = -mg
+\end{equation}
+
+We know that the pressure will be lower at the bottom of the column than at the top.
+The change in pressure as a function of height can be defined as:
+\begin{equation}
+    \dfrac{dp}{dh} = -mgn \label{eq:pressure_derivative}
+\end{equation}
+
+It is worth checking your intuition here. 
+We expect the pressure to increase as the height decreases, which this equation confirms.
+We also know that as the number of particles per unit volume (n) increases, the pressure changes more quickly.
+Note that while m and g are constants, n is a function of h.
+
+By taking the derivative of \ref{eq:ideal_simple} we can find another definition of $\dfrac{dp}{dh}$
+\begin{equation}
+    \dfrac{dp}{dh} = k_BT\dfrac{dn}{dh} \label{eq:ideal_simple_derivative}
+\end{equation}
+
+By setting \ref{eq:ideal_simple_derivative} equal to \ref{eq:pressure_derivative}, we get a new differential equation
+
+\begin{equation}
+    k_BT\dfrac{dn}{dh} = -mgn
+\end{equation}
+
+By solving this differential equation, we get a simple Boltzmann distribution for the particle in this box:
+\begin{equation}
+    \frac{1}{n}dn = \frac{-mg}{k_BT}dh
+\end{equation}
+\begin{equation}
+    \ln(n) + C_1 = \frac{-mg}{k_BT}h + C_2
+\end{equation}
+\begin{equation}
+    \ln(n) = \frac{-mg}{k_BT}h + C
+\end{equation}
+\begin{equation}
+    n = e^{\frac{-mg}{k_BT}h + C}
+\end{equation}
+\begin{equation}
+    n = e^{\frac{-mg}{k_BT}h}\cdot e^C
+\end{equation}
+\begin{equation}
+    n = Ce^{\frac{-mg}{k_BT}h} \label{eq:with_C}
+\end{equation}
+\begin{equation}
+    n \propto e^{\frac{-mg}{k_BT}h}
+\end{equation}
+\begin{equation}
+    n \propto e^{\frac{-E_{pot}}{k_BT}} \label{eq:ideal_simple_bf}
+\end{equation}
+
+Note a common trick for dealing with integration constants - you never knew what they were anyway, so as long as they remain constants, you can just keep redefining C to put all the unknown integration constants together!
+So $e^C$ becomes $C$.
+It will turn out that this constant becomes the partition coefficient, which we will discuss later.
+Now we can relate this to probability like so.
+The number of molecules per unit volume at height $h$ is given by the number of molecules at height $h$ divided by the total number of molecules. 
+\begin{equation}
+    P_h \propto e^{\frac{-E_{h}}{k_BT}} \label{eq:prob_bf}
+\end{equation}
+
+Although we've only done this derivation for a particular, simple case, it turns out that this relationship between probability and energy holds for many different kinds of systems. 
+This exponential function is known as the Boltzmann factor for a particular state.
+\begin{equation}
+    P_A \propto e^{-\frac{E_A}{k_BT}}\label{eq:bd1}
+\end{equation}
+
+We can then calculate the odds ratio of two states in a system by taking the ratio of these Boltzmann factors:
+\begin{equation}
+    \frac{P_B}{P_A} = \frac{e^{-\frac{E_B}{k_BT}}}{e^{-\frac{E_A}{k_BT}}}
+\end{equation}
+\begin{equation}
+\frac{P_B}{P_A} = e^{-\frac{E_B - E_A}{k_BT}} \label{eq:bd3}
+\end{equation}
+\begin{equation}
+\frac{P_B}{P_A} = e^{-\frac{\Delta E_{A \rightarrow B}}{k_BT}} \label{eq:bd3}
+\end{equation}
+
+While this is a very nice result, we have made a key assumption that we will want to relax.
+
+\begin{keynote}
+Question - What assumption did we make about the shape of the box?
+\end{keynote}
+
+\subsection{Handling multiplicity, or an unequal distribution of the number of possible microstates}
+
+In the previous section, we assumed that volume did not change as a function of height.
+We will now examine the consequences of releasing this assumption in the case of our two states.
+
+Previously we looked at the case of the probability of finding a molecule in state $A$ given a particular volume. 
+\begin{equation}
+    P_{A} \propto e^{-\frac{E_A}{k_BT}} \label{eq:bf}
+\end{equation}
+
+We define a new probability given by this original probability multiplied by the volume available to the state.
+If the volume of the state gets larger, the probability of being in that state will also get larger.
+\begin{equation}
+    P_A \propto V_Ae^{-\frac{E_A}{k_BT}}
+\end{equation}
+
+We again are interested in examining the ratio of these probabilities given by
+\begin{equation}
+    \frac{P_B V_B}{P_A V_A} = \frac{V_Be^{-\frac{E_B}{k_BT}}}{V_Ae^{-\frac{E_A}{k_BT}}}
+\end{equation}
+
+By rearranging we get
+\begin{equation}
+    \frac{P_B V_B}{P_A V_A} = \frac{e^{-\frac{E_B - k_BT\cdot \ln{V_B}}{k_BT}}}{e^{-\frac{E_A - k_BT\cdot \ln{V_A}}{k_BT}}}
+\end{equation}
+
+Those $k_B\ln V$ factors are annoying.
+Let's make the equation simpler by defining a new property:
+
+\begin{equation}
+    S = k_B \ln V
+\end{equation}
+
+Now we get the equation
+\begin{equation}
+    \frac{P_B V_B}{P_A V_A} = \frac{e^{-\frac{E_B - TS_B}{k_BT}}}{e^{-\frac{E_A - TS_A}{k_BT}}}
+\end{equation}
+
+Now at this stage we define a new energy, called the Helmholtz free energy which is a thermodynamic equation of state.
+\begin{equation}
+    F = E - TS
+\end{equation}
+
+Now we finally get a new kind of Boltzmann distribution:
+\begin{equation}
+    \frac{P_B}{P_A} = \frac{e^{-\frac{F_B}{k_BT}}}{e^{-\frac{F_A}{k_BT}}}
+\end{equation}
+\begin{equation}
+    \frac{P_B}{P_A} = e^{-\frac{\Delta F_{A \rightarrow B}}{k_BT}}
+\end{equation}
+
+Although we derived this in the context of changing volume, it turns out that we will need to do this any time the number of 'microstates' that a macrostate (in our case, states A and B) has access to. 
+As the volume increases, the number of places a molecule can be increases, and so the number of possible microstates increases.
+
+Since for an ideal gas, the number of microstates is proportional to the volume, we can rewrite our equation from before defining $W$ as the number of microstates that a state can have.
+\begin{equation}
+    S = k_B\ln W \label{eq:entropy}
+\end{equation}
+
+Entropy as a concept existed before Boltzmann, but he connected the microscopic world of statistical mechanics to the macroscopic world of thermodynamics by finding a place for the definition of entropy in statistical mechanics.
+This equation (\ref{eq:entropy}) was so consequential that it is engraved on his tombstone!
+
+\section{Relation to the Gibbs free energy and chemical equilibrium}
+
+Gibbs free energy is defined as 
+\begin{equation}
+    G(p,T) = E + pV - TS = H - TS
+\end{equation}
+
+In the case where changes in volume are minimal, we can make the assumption that changes in G are equal to changes in F.
+\begin{equation}
+    \Delta G = \Delta E + p\Delta V(\approx 0) - T\Delta S
+\end{equation}
+\begin{equation}
+    \Delta F = \Delta E - T \Delta S
+\end{equation}
+\begin{equation}
+    \Delta F \approx \Delta G
+\end{equation}
+
+And now we can relate the Boltzmann distribution to the Gibbs free energy you may have encountered in a chemistry course.
+
+\begin{equation}
+    \frac{P_B}{P_A} = e^{-\frac{\Delta G_{A \rightarrow B}}{k_BT}} \label{eq:gibbs}
+\end{equation}
+
+For a unimolecular chemical reaction, we can define the Gibbs free energy by
+\begin{equation}
+    A \xrightleftharpoons {\Delta G} B
+\end{equation}
+
+When we rearrange (\ref{eq:gibbs}), we find that
+\begin{equation}
+    \Delta G_{A \rightarrow B} = -k_BT\ln\frac{P_B}{P_A}
+\end{equation}
+
+We know that the equilibrium constant is given by
+\begin{equation}
+    K_{eq} = \frac{[B]}{[A]} = \frac{P_B}{P_A}
+\end{equation}
+where $[X]$ is the molar concentration of molecular entity $X$.
+These concepts are closely connected, as the probability of $X$ is proportional to the concentration of $X$. 
+And so we can get the standard equation for Gibbs free energy for describing chemical reactions!
+\begin{equation}
+    \Delta G_{A \rightarrow B} = -k_BT\ln K_{eq}
+\end{equation}
+
+\section{Normalizing the Boltzmann factor}
+
+We know that the probability of a given state is proportional to its Boltzmann factor (\ref{eq:bf}).
+But what happened to the integration constant in (\ref{eq:with_C})?
+We've been getting a way with canceling it out by taking a ratio of Boltzmann factors, but we know that for a finite set, $M$, of available states the system can take, the probability of being in a particular state $A$ is:
+\begin{equation}
+    P_{A} = \frac{e^{-\frac{E_A}{k_BT}}}{\sum_{i \in M} e^{-\frac{E_i}{k_BT}}}
+\end{equation}
+
+The denominator here is known as the partition function and is the sum of the Boltzmann factors for all the possible states of the system.
+\begin{equation}
+    Z = \sum_{i \in M} P_i = \sum_{i \in M} e^{-\frac{E_i}{k_BT}}
+\end{equation}
+
+The partition coefficient is typically incalculable, which means that in most applications the relevant experimental values are assumed to be derived from a ratio of these probabilities (\ref{eq:bd3}), which has the nice property of canceling out the partition coefficient.
+
+\begin{equation}
+    \frac{p_B}{p_A} = \frac{\frac{e^{-\frac{E_B}{k_BT}}}{Z}}{\frac{e^{-\frac{E_A}{k_BT}}}{Z}}
+    = \frac{e^{-\frac{E_B}{k_BT}}}{e^{-\frac{E_A}{k_BT}}}
+    = e^{-\frac{E_B - E_A}{k_BT}}
+    \approx e^{-\frac{\Delta G_{A\rightarrow B}}{k_BT}} 
+    \label{eq:bd3}
+\end{equation} 
+
+\section{Application of Boltzmann to Several Common Two State Models}
+
+\subsubsection{Protein-ligand Binding}
+We can write the thermodynamic equilibrium of the binding of a ligand ($L$) to a protein ($P$) like so:
+
+\begin{equation}
+    P + L \xrightleftharpoons[\Delta G_{unbind}]{\Delta G_{bind}} P \cdot L
+\end{equation}
+
+It is tradition in this context to use the equilibrium constant of the reverse process, the called the dissociation constant ($K_D$).
+
+\begin{equation}
+    K_D = \frac{[P][L]}{[P \cdot L]}
+    \label{eq:pl_kd}
+\end{equation}
+
+\begin{equation}
+    \Delta G_{unbind} = - k_B T \ln {K_D}
+\end{equation}
+
+Typically we are interested in the fraction of protein that is bound by the ligand:
+
+\begin{equation}
+    f_b = \frac{\text{Bound Protein}}{\text{Bound + Unbound Protein}} = \frac{[P \cdot L]}{[P \cdot L] + [P]}
+    \label{eq:fb1}
+\end{equation}
+
+The problem with this equation is that, experimentally, we usually do not know the exact concentrations of bound and unbound protein and ligand. 
+To simplify this, we first make the assumption that
+\begin{equation}
+    [L] >>> [P]
+\end{equation}
+such that
+\begin{equation}
+    [L]_T = [L] + [P \cdot L] \approx [L]
+\end{equation}
+
+If we divide the top and bottom of Eq. \ref{eq:fb1} with $[P]$, we get:
+\begin{equation}
+    f_b = \frac{\frac{[P \cdot L]}{[P]}}{\frac{[P \cdot L]}{[P]} + 1}
+    \label{eq:fb2}
+\end{equation}
+
+By rearranging Eq. \ref{eq:pl_kd} to get
+\begin{equation}
+    \frac{[L]}{K_D} = \frac{[P \cdot L]}{[P]}
+    \label{eq:pl_kd2}
+\end{equation}
+
+and combining Eq. \ref{eq:pl_kd2} with Eq. \ref{eq:fb2} we get
+
+\begin{equation}
+    f_b = \frac{\frac{[L]}{K_D}}{\frac{[L]}{K_D} + 1} = \frac{1}{\frac{K_D}{[L]} + 1}
+\end{equation}
+
+This leads to the typical biochemistry shorthand that the $K_D$ is the concentration of ligand when half of the protein is bound. 
+
+\begin{keynote}
+Question - What assumption did we make about the relationship between protein and ligand concentrations?
+\end{keynote}
+
+\subsection{Acid-base equilibrium and the Henderson–Hasselbalch equation}
+
+Another simple two state model that follows this distribution is the acid-base equilibrium.
